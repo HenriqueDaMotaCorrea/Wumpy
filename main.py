@@ -1,15 +1,8 @@
 # Wumpy
 # Based on Hunt The Wumpus by Gregory Yob
 
-help_text = """
-    HELP: displays available commands and instructions.
-    QUIT: exits the game.
-"""
-
-intro_text = """
-    Welcome to Wumpy!
-    Type HELP for instructions.
-"""
+from objects import *
+from texts import *
 
 # Rooms are arranged as vertices of a dodecahedron
 map = [
@@ -34,12 +27,6 @@ map = [
     [11, 18, 20], #Room 19
     [13, 16, 19] #Room 20
 ]
-
-class Room():
-    def __init__(self, id=0, connections=[], messages=[]):
-        self.id = id
-        self.connections = connections
-        self.messages = messages
 
 def assemble_level(map=[]):
     level = []

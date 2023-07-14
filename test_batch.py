@@ -4,6 +4,7 @@
 import pytest
 from main import *
 
+# Commands
 def test_input_handler():
     test_inp = input_handler('test')
     assert test_inp == 'TEST'
@@ -31,6 +32,7 @@ def test_command_handler_default_matching():
     test_cmd = command_handler(test_dict, 'NOTTEST', test_default_func)
     assert test_cmd == test_default_func
 
+# Room
 def test_room_id():
     id = 1
     test_room = Room(id)
