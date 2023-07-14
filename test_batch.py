@@ -48,3 +48,16 @@ def test_room_messages():
     msg = ['msg1', 'msg2']
     test_room = Room(id, connect, msg)
     assert test_room.messages == msg
+
+def test_assemble_level():
+    pentagon = [[2,5],[1,3],[2,4],[3,5],[1,4]]
+    r1 = Room(1, pentagon[0])
+    r2 = Room(2, pentagon[1])
+    r3 = Room(3, pentagon[2])
+    r4 = Room(4, pentagon[3])
+    r5 = Room(5, pentagon[4])
+    lvl = [r1, r2, r3, r4, r5]
+    test_level = assemble_level(pentagon)
+    for i in range(len(test_level)):
+        assert test_level[i].id == lvl[i].id
+        assert test_level[i].connections == lvl[i].connections
