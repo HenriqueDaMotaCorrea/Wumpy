@@ -11,6 +11,12 @@ intro_text = """
     Type HELP for instructions.
 """
 
+class Room():
+    def __init__(self, id = 0, connections = [], messages = []):
+        self.id = id
+        self.connections = connections
+        self.messages = messages
+
 def show_help():
     print(help_text)
 
