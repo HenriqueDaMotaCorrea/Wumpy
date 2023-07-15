@@ -96,7 +96,7 @@ def main():
             if cmd in level.keys():
                 #TODO: Make it check the Room object's name instead of level[key]
                 newroom = level[cmd]
-                if not player.move_connected(newroom):
+                if player.move_connected(newroom) == False:
                     print(text_nomove)
             else:
                 print(text_nosuchroom)
