@@ -29,10 +29,10 @@ map = [
 ]
 
 def assemble_level(map=[]):
-    level = []
+    level = {}
     for i in range(1, len(map)+1):
         r = Room(i, map[i-1])
-        level.append(r)
+        level.update({str(r.id): r})
     return level
 
 def input_handler(raw_in):
@@ -44,6 +44,16 @@ def command_handler(cmd_dict, cmd_name, default_cmd=None):
 
 def game():
     level = assemble_level(map)
+    player = Entity(location=level['1'])
+
+    def move_player():
+        print(f"Select a room: {player.location.connections}")
+        cmd_in = input_handler(input('>'))
+        dest = command_handler(level, cmd_in, print("What?"))
+        if dest.is_connected(player.location):
+            player.move(dest)
+        else:
+            print("You can't get there from here!")
     
     def show_help():
         print(help_text)
@@ -54,6 +64,7 @@ def game():
     commands = {
         'HELP': show_help,
         'QUIT': quit_game,
+        'MOVE': move_player,
     }
 
     print(intro_text)
