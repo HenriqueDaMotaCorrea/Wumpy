@@ -63,3 +63,40 @@ def test_assemble_level():
     for i in range(len(test_level)):
         assert test_level[i].id == lvl[i].id
         assert test_level[i].connections == lvl[i].connections
+
+def test_room_is_connected():
+    map = [[2],[1]]
+    r1 = Room(1, map[0])
+    r2 = Room(2, map[1])
+    assert r1.is_connected(r2) == True
+
+# Entity
+def test_entity_location():
+    loc = Room()
+    test_entity = Entity(location=loc)
+    assert test_entity.location == loc
+
+def test_entity_move():
+    r1 = Room(1)
+    r2 = Room(2)
+    test_entity = Entity(location=r1)
+    test_entity.move(r2)
+    assert test_entity.location == r2
+
+def test_entity_move_connected():
+    map = [[2],[1]]
+    r1 = Room(1, map[0])
+    r2 = Room(2, map[1])
+    lvl = [r1, r2]
+    test_entity = Entity(location=r1)
+    test_entity.move_connected(r2)
+    assert test_entity.location == r2
+
+def test_entity_move_connected_invalid():
+    map = [[2],[1,3],[2]]
+    r1 = Room(1, map[0])
+    r2 = Room(2, map[1])
+    r3 = Room(3, map[2])
+    lvl = [r1, r2, r3]
+    test_entity = Entity(location=r1)
+    assert test_entity.move_connected(r3) == False
