@@ -77,8 +77,13 @@ def main():
         elif cmd == 'HELP' or cmd == 'H':
             show_help()
         elif cmd == 'MOVE' or cmd == 'M':
-            if not player.move_connected():
-                print(text_nomove)
+            cmd = input_handler(input(text_wheremove))
+            if cmd in level.keys():
+                newroom = level[cmd]
+                if not player.move_connected(newroom):
+                    print(text_nomove)
+            else:
+                print(text_nosuchroom)
         else:
             invalid_command()
 
