@@ -48,7 +48,7 @@ def input_handler(raw_in):
 def command_handler(cmd_dict, cmd_name, default_cmd=None):
     return cmd_dict.get(cmd_name, default_cmd)
 
-def game():
+def main():
     commands = {
         'HELP': show_help,
         'QUIT': quit_game
@@ -60,9 +60,6 @@ def game():
     while True:
         cmd_in = input_handler(input('>'))
         command_handler(commands, cmd_in, show_help)()
-
-def main():
-    game()
 
 if __name__ == '__main__':
     main()
