@@ -35,12 +35,6 @@ def assemble_level(map=[]):
         level.append(r)
     return level
 
-def show_help():
-    print(help_text)
-
-def quit_game():
-    raise SystemExit()
-
 def input_handler(raw_in):
     proc_in = str.upper(raw_in)
     return proc_in
@@ -49,11 +43,18 @@ def command_handler(cmd_dict, cmd_name, default_cmd=None):
     return cmd_dict.get(cmd_name, default_cmd)
 
 def game():
+    level = assemble_level(map)
+    
+    def show_help():
+        print(help_text)
+
+    def quit_game():
+        raise SystemExit()
+    
     commands = {
         'HELP': show_help,
-        'QUIT': quit_game
+        'QUIT': quit_game,
     }
-    level = assemble_level(map)
 
     print(intro_text)
     
