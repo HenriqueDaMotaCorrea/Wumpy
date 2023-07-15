@@ -30,10 +30,10 @@ map = {
 }
 
 def assemble_level(map={}):
-    level = []
+    level = {}
     for key in map.keys():
         r = Room(key, map.get(key))
-        level.append(r)
+        level.update({r.name: r})
     return level
 
 def invalid_command():
@@ -50,12 +50,12 @@ def main():
     level = assemble_level(map)
 
     #TODO: Randomize start points
-    player_room = level[1]
-    wumpus_room = level[20]
-    pit1_room = level[5]
-    pit2_room = level[6]
-    bat1_room = level[7]
-    bat2_room = level[8]
+    player_room = level['1']
+    wumpus_room = level['20']
+    pit1_room = level['5']
+    pit2_room = level['6']
+    bat1_room = level['7']
+    bat2_room = level['8']
 
     player = Entity(location=player_room)
     wumpus = Entity(location=wumpus_room, message=text_wumpus_msg)
@@ -67,8 +67,8 @@ def main():
     print(text_intro)
     
     while True:
-        current_loc = level[player.location.id]
-        print(text_roomdesc.format(current_loc.id, current_loc.connections))
+        current_loc = level[player.location.name]
+        print(text_roomdesc.format(current_loc.name, current_loc.connections))
         
         cmd = input_handler(input('> '))
 

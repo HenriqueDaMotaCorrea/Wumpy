@@ -34,11 +34,11 @@ def test_assemble_level():
     r3 = Room('3', pentagon['3'])
     r4 = Room('4', pentagon['4'])
     r5 = Room('5', pentagon['5'])
-    lvl = [r1, r2, r3, r4, r5]
+    lvl = {r1.name: r1, r2.name: r2, r3.name: r3, r4.name: r4, r5.name: r5}
     test_level = assemble_level(pentagon)
-    for i in range(len(test_level)):
-        assert test_level[i].name == lvl[i].name
-        assert test_level[i].connections == lvl[i].connections
+    for key in test_level.keys():
+        assert test_level[key].name == lvl[key].name
+        assert test_level[key].connections == lvl[key].connections
 
 def test_room_is_connected():
     map = {'1': ['2'], '2': ['1']}
