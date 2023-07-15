@@ -1,6 +1,7 @@
 # Wumpy
 # Based on Hunt The Wumpus by Gregory Yob
 
+import sys
 from objects import *
 from texts import *
 
@@ -35,31 +36,29 @@ def assemble_level(map=[]):
         level.append(r)
     return level
 
-def show_help():
-    print(help_text)
+def invalid_command():
+    print(text_invalid)
 
-def quit_game():
-    raise SystemExit()
+def show_help():
+    print(text_help)
 
 def input_handler(raw_in):
     proc_in = str.upper(raw_in)
     return proc_in
 
-def command_handler(cmd_dict, cmd_name, default_cmd=None):
-    return cmd_dict.get(cmd_name, default_cmd)
-
 def main():
-    commands = {
-        'HELP': show_help,
-        'QUIT': quit_game
-    }
     level = assemble_level(map)
 
-    print(intro_text)
+    print(text_intro)
     
     while True:
-        cmd_in = input_handler(input('>'))
-        command_handler(commands, cmd_in, show_help)()
+        cmd_in = input_handler(input('> '))
+        if cmd_in == 'QUIT' or cmd_in == 'Q':
+            sys.exit()
+        elif cmd_in == 'HELP' or cmd_in == 'H':
+            show_help()
+        else:
+            invalid_command()
 
 if __name__ == '__main__':
     main()

@@ -1,11 +1,14 @@
 # Text strings displayed in-game
 
-help_text = """
-    HELP: displays available commands and instructions.
-    QUIT: exits the game.
+text_invalid = """
+What? Please try again.
 """
 
-intro_text = """
-    Welcome to Wumpy!
-    Type HELP for instructions.
+text_help = """
+Instructions coming soon!
+"""
+
+text_intro = """
+Welcome to Wumpy!
+Enter HELP/H for instructions, or QUIT/Q to leave.
 """
