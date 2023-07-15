@@ -44,13 +44,6 @@ def test_room_connections():
     test_room = Room(id, connect)
     assert test_room.connections == connect
 
-def test_room_messages():
-    id = 1
-    connect = [2, 3, 4]
-    msg = ['msg1', 'msg2']
-    test_room = Room(id, connect, msg)
-    assert test_room.messages == msg
-
 def test_assemble_level():
     pentagon = [[2,5],[1,3],[2,4],[3,5],[1,4]]
     r1 = Room(1, pentagon[0])
@@ -75,6 +68,11 @@ def test_entity_location():
     loc = Room()
     test_entity = Entity(location=loc)
     assert test_entity.location == loc
+
+def test_entity_kwarg():
+    msg = 'test'
+    test_entity = Entity(test_kwarg=msg)
+    assert test_entity.test_kwarg == msg
 
 def test_entity_move():
     r1 = Room(1)
