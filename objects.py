@@ -1,13 +1,12 @@
 # Game objects
 
 class Room():
-    def __init__(self, id=0, connections=[], messages=[]):
-        self.id = id
+    def __init__(self, name='0', connections=[]):
+        self.name = name
         self.connections = connections
-        self.messages = messages
     
     def is_connected(self, other_room):
-        if other_room.id in self.connections:
+        if other_room.name in self.connections:
             return True
         else:
             return False
