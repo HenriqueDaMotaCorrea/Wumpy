@@ -36,6 +36,14 @@ def assemble_level(map={}):
         level.update({r.name: r})
     return level
 
+def get_neighbors(ent=Entity, ent_list=[]):
+    neighbors = []
+    for r_name in ent.location.connections:
+        for e in ent_list:
+            if e.location.name == r_name:
+                neighbors.append(e)
+    return neighbors
+
 def invalid_command():
     print(text_invalid)
 
@@ -63,12 +71,19 @@ def main():
     pit2 = Entity(location=pit2_room, message=text_pit_msg)
     bat1 = Entity(location=bat1_room, message=text_bat_msg)
     bat2 = Entity(location=bat2_room, message=text_bat_msg)
+    
+    hazards = [wumpus, pit1, pit2, bat1, bat2]
 
     print(text_intro)
     
     while True:
         current_loc = level[player.location.name]
         print(text_roomdesc.format(current_loc.name, current_loc.connections))
+
+        neighbors = get_neighbors(player, hazards)
+        if len(neighbors) > 0:
+            for n in neighbors:
+                print(n.message)
         
         cmd = input_handler(input('> '))
 
@@ -79,11 +94,14 @@ def main():
         elif cmd == 'MOVE' or cmd == 'M':
             cmd = input_handler(input(text_wheremove))
             if cmd in level.keys():
+                #TODO: Make it check the Room object's name instead of level[key]
                 newroom = level[cmd]
                 if not player.move_connected(newroom):
                     print(text_nomove)
             else:
                 print(text_nosuchroom)
+        elif cmd == 'SHOOT' or cmd == 'S':
+            print("Not implemented yet, sorry!")
         else:
             invalid_command()
 

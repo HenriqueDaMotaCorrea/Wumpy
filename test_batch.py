@@ -68,7 +68,6 @@ def test_entity_move_connected():
     map = {'1': ['2'], '2': ['1']}
     r1 = Room('1', map['1'])
     r2 = Room('2', map['2'])
-    lvl = [r1, r2]
     test_entity = Entity(location=r1)
     test_entity.move_connected(r2)
     assert test_entity.location == r2
@@ -78,6 +77,17 @@ def test_entity_move_connected_invalid():
     r1 = Room('1', map['1'])
     r2 = Room('2', map['2'])
     r3 = Room('3', map['3'])
-    lvl = [r1, r2, r3]
     test_entity = Entity(location=r1)
     assert test_entity.move_connected(r3) == False
+
+def test_entity_get_neighbors():
+    map = {'1': ['2', '3'], '2': ['1'], '3': ['1']}
+    r1 = Room('1', map['1'])
+    r2 = Room('2', map['2'])
+    r3 = Room('3', map['3'])
+    e1 = Entity(location=r1)
+    e2 = Entity(location=r2)
+    e3 = Entity(location=r3)
+    e_list = [e1, e2, e3]
+    test_neighbors = get_neighbors(e1, e_list)
+    assert test_neighbors == [e2, e3]
