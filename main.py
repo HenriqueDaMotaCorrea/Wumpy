@@ -88,7 +88,7 @@ def main():
         cmd = input_handler(input('> '))
 
         if cmd == 'QUIT' or cmd == 'Q':
-            sys.exit()
+            break
         elif cmd == 'HELP' or cmd == 'H':
             show_help()
         elif cmd == 'MOVE' or cmd == 'M':
@@ -104,6 +104,12 @@ def main():
             print("Not implemented yet, sorry!")
         else:
             invalid_command()
+    
+    return 0
 
 if __name__ == '__main__':
-    main()
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt as exc:
+        sys.stdout.write(str(exc))
+        sys.exit(0)
