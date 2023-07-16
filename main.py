@@ -111,7 +111,17 @@ def main():
             else:
                 print(text_nosuchroom)
         elif cmd == 'SHOOT' or cmd == 'S':
-            print("Not implemented yet, sorry!")
+            cmd = input_handler(input(text_whereshoot))
+            if cmd in level.keys():
+                if level[cmd].is_connected(player.location):
+                    if level[cmd].name == wumpus.location.name:
+                        print(text_win)
+                    else:
+                        print(text_arrow_miss)
+                else:
+                    print(text_noshoot)
+            else:
+                print(text_nosuchroom)
         else:
             invalid_command()
     
