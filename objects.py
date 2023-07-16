@@ -24,5 +24,6 @@ class Entity():
     def move_connected(self, new_location):
         if new_location.is_connected(self.location):
             self.move(new_location)
+            return self.location
         else:
             return False

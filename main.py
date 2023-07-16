@@ -5,30 +5,6 @@ import sys
 from objects import *
 from texts import *
 
-# Rooms are arranged as vertices of a dodecahedron
-map = {
-    '1': ['2', '5', '8'], #Room 1
-    '2': ['1', '3', '10'], #Room 2
-    '3': ['2', '4', '12'], #Room 3
-    '4': ['3', '5', '14'], #Room 4
-    '5': ['1', '4', '6'], #Room 5
-    '6': ['5', '7', '15'], #Room 6
-    '7': ['6', '8', '17'], #Room 7
-    '8': ['1', '7', '9'], #Room 8
-    '9': ['8', '10', '18'], #Room 9
-    '10': ['2', '9', '11'], #Room 10
-    '11': ['10', '12', '19'], #Room 11
-    '12': ['3', '11', '13'], #Room 12
-    '13': ['12', '14', '20'], #Room 13
-    '14': ['4', '13', '15'], #Room 14
-    '15': ['6', '14', '16'], #Room 15
-    '16': ['15', '17', '20'], #Room 16
-    '17': ['7', '16', '18'], #Room 17
-    '18': ['9', '17', '19'], #Room 18
-    '19': ['11', '18', '20'], #Room 19
-    '20': ['13', '16', '19'] #Room 20
-}
-
 def assemble_level(map={}):
     level = {}
     for key in map.keys():
@@ -55,6 +31,29 @@ def input_handler(raw_in):
     return proc_in
 
 def main():
+    # Rooms are arranged as vertices of a dodecahedron
+    map = {
+        '1': ['2', '5', '8'], #Room 1
+        '2': ['1', '3', '10'], #Room 2
+        '3': ['2', '4', '12'], #Room 3
+        '4': ['3', '5', '14'], #Room 4
+        '5': ['1', '4', '6'], #Room 5
+        '6': ['5', '7', '15'], #Room 6
+        '7': ['6', '8', '17'], #Room 7
+        '8': ['1', '7', '9'], #Room 8
+        '9': ['8', '10', '18'], #Room 9
+        '10': ['2', '9', '11'], #Room 10
+        '11': ['10', '12', '19'], #Room 11
+        '12': ['3', '11', '13'], #Room 12
+        '13': ['12', '14', '20'], #Room 13
+        '14': ['4', '13', '15'], #Room 14
+        '15': ['6', '14', '16'], #Room 15
+        '16': ['15', '17', '20'], #Room 16
+        '17': ['7', '16', '18'], #Room 17
+        '18': ['9', '17', '19'], #Room 18
+        '19': ['11', '18', '20'], #Room 19
+        '20': ['13', '16', '19'] #Room 20
+    }
     level = assemble_level(map)
 
     #TODO: Randomize start points
@@ -95,9 +94,20 @@ def main():
             cmd = input_handler(input(text_wheremove))
             if cmd in level.keys():
                 #TODO: Make it check the Room object's name instead of level[key]
-                newroom = level[cmd]
-                if player.move_connected(newroom) == False:
+                newroom = player.move_connected(level[cmd])
+                if newroom == False:
                     print(text_nomove)
+                else:
+                    if newroom.name == pit1.location.name:
+                        print(text_pit_fall)
+                    elif newroom.name == pit2.location.name:
+                        print(text_pit_fall)
+                    elif newroom.name == bat1.location.name:
+                        print(text_bat_snatch)
+                    elif newroom.name == bat2.location.name:
+                        print(text_bat_snatch)
+                    elif newroom.name == wumpus.location.name:
+                        print(text_wumpus_bump)
             else:
                 print(text_nosuchroom)
         elif cmd == 'SHOOT' or cmd == 'S':

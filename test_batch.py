@@ -69,8 +69,8 @@ def test_entity_move_connected():
     r1 = Room('1', map['1'])
     r2 = Room('2', map['2'])
     test_entity = Entity(location=r1)
-    test_entity.move_connected(r2)
-    assert test_entity.location == r2
+    test_new_loc = test_entity.move_connected(r2)
+    assert test_new_loc == r2
 
 def test_entity_move_connected_invalid():
     map = {'1': ['2'], '2': ['1','3'], '3': ['2']}

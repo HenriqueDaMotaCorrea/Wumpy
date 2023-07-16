@@ -18,6 +18,16 @@ text_pit_msg = """You feel a draft."""
 
 text_bat_msg = """You hear flapping!"""
 
+# Events
+text_wumpus_bump = """
+Bumped into a Wumpus!"""
+
+text_pit_fall = """
+'AAAAAAAA--' You fell into a pit!"""
+
+text_bat_snatch = """
+The bat swarm snatches you up and drops you in another room!"""
+
 # Standard
 text_roomdesc = """
 You are in room {}. Exits to: {}
