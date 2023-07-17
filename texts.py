@@ -28,11 +28,14 @@ The bat swarm snatches you up and drops you in another room!"""
 text_wumpus_bump = """
 Bumped into a Wumpus!"""
 
+text_wumpus_gotcha = """
+The Wumpus gets you, and you get nothing!"""
+
 text_win = """
 YOU GOT THE WUMPUS! Good job!"""
 
 text_lose = """
-The Wumpus gets you, and you get nothing! YOU LOSE!"""
+YOU LOSE!"""
 
 text_arrow_miss = """
 Didn't hit anything..."""

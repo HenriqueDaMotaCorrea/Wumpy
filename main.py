@@ -30,6 +30,7 @@ def input_handler(raw_in):
     proc_in = str.upper(raw_in)
     return proc_in
 
+#TODO: Isolate reusable behaviors into functions
 def main():
     # Rooms are arranged as vertices of a dodecahedron
     map = {
@@ -73,6 +74,12 @@ def main():
     
     hazards = [wumpus, pit1, pit2, bat1, bat2]
 
+    def bat_snatch():
+        player.move(level[random.choice(list(level))])
+        for haz in hazards:
+            if player.location == haz.location:
+                bat_snatch()
+
     print(text_intro)
     
     while True:
@@ -100,14 +107,23 @@ def main():
                 else:
                     if newroom.name == pit1.location.name:
                         print(text_pit_fall)
+                        print(text_lose)
+                        break
                     elif newroom.name == pit2.location.name:
                         print(text_pit_fall)
+                        print(text_lose)
+                        break
                     elif newroom.name == bat1.location.name:
                         print(text_bat_snatch)
+                        bat_snatch()
                     elif newroom.name == bat2.location.name:
                         print(text_bat_snatch)
+                        bat_snatch()
                     elif newroom.name == wumpus.location.name:
-                        print(text_wumpus_bump)
+                        #print(text_wumpus_bump)
+                        print(text_wumpus_gotcha)
+                        print(text_lose)
+                        break
             else:
                 print(text_nosuchroom)
         elif cmd == 'SHOOT' or cmd == 'S':
@@ -118,8 +134,11 @@ def main():
                         print(text_win)
                         break
                     else:
-                        wumpus.move_connected(level[random.choice(wumpus.location.connections)])
                         print(text_arrow_miss)
+                        wumpus.move_connected(level[random.choice(wumpus.location.connections)])
+                        if wumpus.location == player.location:
+                            print(text_lose)
+                            break
                 else:
                     print(text_noshoot)
             else:
