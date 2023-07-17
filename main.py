@@ -1,7 +1,7 @@
 # Wumpy
 # Based on Hunt The Wumpus by Gregory Yob
 
-import sys
+import sys, random
 from objects import *
 from texts import *
 
@@ -116,7 +116,9 @@ def main():
                 if level[cmd].is_connected(player.location):
                     if level[cmd].name == wumpus.location.name:
                         print(text_win)
+                        break
                     else:
+                        wumpus.move_connected(level[random.choice(wumpus.location.connections)])
                         print(text_arrow_miss)
                 else:
                     print(text_noshoot)
