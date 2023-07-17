@@ -56,14 +56,15 @@ def main():
         '20': ['13', '16', '19'] #Room 20
     }
     level = assemble_level(map)
+    
+    start_points = random.sample(list(level), 6)
 
-    #TODO: Randomize start points
-    player_room = level['1']
-    wumpus_room = level['20']
-    pit1_room = level['5']
-    pit2_room = level['6']
-    bat1_room = level['7']
-    bat2_room = level['8']
+    player_room = level[start_points[0]]
+    wumpus_room = level[start_points[1]]
+    pit1_room = level[start_points[2]]
+    pit2_room = level[start_points[3]]
+    bat1_room = level[start_points[4]]
+    bat2_room = level[start_points[5]]
 
     player = Entity(location=player_room)
     wumpus = Entity(location=wumpus_room, message=text_wumpus_msg)
@@ -73,6 +74,10 @@ def main():
     bat2 = Entity(location=bat2_room, message=text_bat_msg)
     
     hazards = [wumpus, pit1, pit2, bat1, bat2]
+
+    def wumpus_wake():
+        if random.random() > 0.25:
+            wumpus.move_connected(level[random.choice(wumpus.location.connections)])
 
     def bat_snatch():
         player.move(level[random.choice(list(level))])
@@ -120,10 +125,12 @@ def main():
                         print(text_bat_snatch)
                         bat_snatch()
                     elif newroom.name == wumpus.location.name:
-                        #print(text_wumpus_bump)
-                        print(text_wumpus_gotcha)
-                        print(text_lose)
-                        break
+                        print(text_wumpus_bump)
+                        wumpus_wake()
+                        if wumpus.location == player.location:
+                            print(text_wumpus_gotcha)
+                            print(text_lose)
+                            break
             else:
                 print(text_nosuchroom)
         elif cmd == 'SHOOT' or cmd == 'S':
@@ -135,8 +142,9 @@ def main():
                         break
                     else:
                         print(text_arrow_miss)
-                        wumpus.move_connected(level[random.choice(wumpus.location.connections)])
+                        wumpus_wake()
                         if wumpus.location == player.location:
+                            print(text_wumpus_gotcha)
                             print(text_lose)
                             break
                 else:
